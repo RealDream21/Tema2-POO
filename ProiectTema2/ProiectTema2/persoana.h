@@ -3,6 +3,7 @@
 
 class Persoana
 {
+protected:
 	int id; //se poate schimba in const daca nu am cin
 	std::string nume;
 	std::string cnp;
@@ -13,7 +14,7 @@ public:
 	Persoana(const std::string&&nume, const std::string&&cnp, const int id);
 	Persoana(const Persoana& persoana);
 	Persoana();
-	void showInfo();
+	virtual void showInfo()const;
 };
 
 class Abonat : public Persoana
@@ -29,6 +30,6 @@ public:
 	Abonat(const std::string&nr_telefon, const Persoana&persoana, const Abonament&abonament);
 	Abonat(const std::string&&nr_telefon, const Persoana&persoana, const Abonament&abonament);
 	Abonat();
-	void showInfo();
+	void showInfo()const override;
 };
 

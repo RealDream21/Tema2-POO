@@ -1,6 +1,4 @@
 ﻿  ProiectTema2.cpp
-C:\Users\Fabi\Desktop\unibuc folder\unibuc\semestru2an1\POO\ProiectTema2\ProiectTema2\ProiectTema2.cpp(7,38): warning C4305: 'argument': truncation from 'double' to 'const float'
-  abonament.cpp
-  persoana.cpp
-  Generating Code...
-  ProiectTema2.vcxproj -> C:\Users\Fabi\Desktop\unibuc folder\unibuc\semestru2an1\POO\ProiectTema2\x64\Debug\ProiectTema2.exe
+C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\ProiectTema2\ProiectTema2.cpp(9,37): warning C4305: 'argument': truncation from 'double' to 'const float'
+C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\ProiectTema2\ProiectTema2.cpp(10,52): warning C4305: 'argument': truncation from 'double' to 'const float'
+  ProiectTema2.vcxproj -> C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\x64\Debug\ProiectTema2.exe
