@@ -3,21 +3,31 @@
 
 int main()
 {
-    //de facut castingul la pointeri astfel incat abonament sa tina minte si premium si normal;
-    //de asemenea, dupa va trebui schimbat in Abonat din Abonament abonament in Abonament* abonament;
+    /*----------------------TO DO ----------------------/
+    //de implementat static in Persoana, Abonat, abonament si abonament_premium sa tina minte nr de abonamente
+    //dupa aceea se afiseaza numarul de abonamente tot cu o functie static
+    //cout la persoana(should be easy)
+    //clasa de Clienti in care tin minte mai multi abonati(nu mostenire, ci compunere)
+    //meniu interactiv: citessc tipul de abonament 1 -> premium, 2-> normal sau ceva de genul
 
-    //Abonament A("marud", 12.59, 12);
-    //Abonament_premium B(10, "salutare", 12.69, 2130);
-    //Persoana marcel("salutmarcel", "318381", 12);
+    //functionalitatile: afisare abonati separati de abonati_premium
+    //castigul total pentru toti abonatii, chestii de genul
+    /*----------------------TO DO ----------------------*/
 
-    Abonament* p;
-    Abonament_premium D;
-    p = &D;
-    std::cin >> p;
+
+
+    Abonament_premium* prem = new Abonament_premium();
+    Abonament* norm = new Abonament();
+
+    std::shared_ptr<Abonament> p(new Abonament_premium());
+    p->setInfo();
     std::cout << p;
+    Abonat A("381381", "salutare", "1234", 12, p);
+    (*p).showInfo();
 
+    //Abonat B("nrtelsxdd", "salutnume", "cnpxdd", 12, p);
+    //B.showInfo();
 
-    //std::shared_ptr<Abonament> p = std::make_shared<Abonament_premium>(12, "salutttt", 120, 39);
 
     std::cout << "Hello World!\n";
     return 0;

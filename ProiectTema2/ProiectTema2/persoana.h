@@ -1,6 +1,5 @@
 #pragma once
 #include "abonament.h"
-#include <memory>
 
 class Persoana
 {

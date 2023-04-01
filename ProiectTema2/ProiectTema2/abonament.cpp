@@ -84,6 +84,7 @@ std::istream& operator>>(std::istream& is, Abonament* abonament)
 	else {
 		is >> *dynamic_cast<Abonament_premium*>(abonament);
 	}
+	return is;
 }
 
 void Abonament::showInfo() const
@@ -93,6 +94,18 @@ void Abonament::showInfo() const
 	std::cout << "Pretul abonamentului: " << pret << std::endl;
 	std::cout << "Perioada abonamentului(luni): " << perioada << std::endl;
 }
+
+void Abonament::setInfo()
+{
+	std::cout << "Dati informatiile pentru abonamentul standard:\n";
+	std::cout << "Numele: \n";
+	std::cin >> this->nume;
+	std::cout << "Pret: \n";
+	std::cin >> this->pret;
+	std::cout << "Perioada: \n";
+	std::cin >> this->perioada;
+}
+
 
 Abonament_premium::Abonament_premium(const int red, const std::string& nume_abonament, const float prt, const int per): Abonament(nume_abonament, prt, per), reducere(red) 
 {
@@ -126,12 +139,21 @@ Abonament_premium::Abonament_premium()
 	std::cout << "Constructor default de la abonament_premium\n";
 }
 
+Abonament_premium& Abonament_premium::operator=(const Abonament_premium& other)
+{
+	reducere = other.reducere;
+	nume = other.nume;
+	pret = other.pret;
+	perioada = other.perioada;
+	return *this;
+}
+
 std::ostream& operator<<(std::ostream& os, const Abonament_premium& abonament_premium)
 {
 	os << "Abonamentul este de tip PREMIUM\n";
 	os << "Denumriea abonamentului: " << abonament_premium.nume << std::endl;
 	os << "Pretul abonamentului: " << abonament_premium.pret << std::endl;
-	os << "Perioada abonamentului: " << abonament_premium.perioada << std::endl;
+	os << "Perioada abonamentului(luni): " << abonament_premium.perioada << std::endl;
 	os << "Reducerea specifica abonamentului premium: " << abonament_premium.reducere << std::endl;
 	return os;
 }
@@ -141,7 +163,7 @@ std::ostream& operator<<(std::ostream& os, const Abonament_premium* abonament_pr
 	os << "Abonamentul este de tip PREMIUM\n";
 	os << "Denumriea abonamentului: " << abonament_premium->nume << std::endl;
 	os << "Pretul abonamentului: " << abonament_premium->pret << std::endl;
-	os << "Perioada abonamentului: " << abonament_premium->perioada << std::endl;
+	os << "Perioada abonamentului(luni): " << abonament_premium->perioada << std::endl;
 	os << "Reducerea specifica abonamentului premium: " << abonament_premium->reducere << std::endl;
 	return os;
 }
@@ -171,4 +193,19 @@ void Abonament_premium::showInfo() const
 	std::cout << "Denumirea abonamentului: " << nume << std::endl;
 	std::cout << "Pretul abonamentului: " << pret << std::endl;
 	std::cout << "Perioada abonamentului(luni): " << perioada << std::endl;
+	std::cout << "Reducerea specifica abonamentului premium: " << reducere << std::endl;
+}
+
+void Abonament_premium::setInfo()
+{
+	std::cout << "Dati informatiile pentru abonamentul premium:\n";
+	std::cout << "Numele abonamentului: \n";
+	std::cin >> this->nume;
+	std::cout << "Pretul abonamentului: \n";
+	std::cin >> this->pret;
+	std::cout << "Perioada abonamentului(luni): \n";
+	std::cin >> this->perioada;
+	std::cout << "Reducere: \n";
+	std::cin >> this->reducere;
+	return;
 }
