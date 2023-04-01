@@ -30,20 +30,33 @@ Abonat::Abonat(const std::string& nr_telefonInit, const std::string& numeInit, c
 
 Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit) : nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit) { std::cout << "Constructor de Abonat plecand de la 0 cu move\n"; }
 
+Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit, std::shared_ptr<Abonament>& abonamentInit) : abonament(abonamentInit), nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit)
+{
+	//std::shared_ptr<Abonament>aux(abonamentInit);
+	//abonament = aux;
+	std::cout << "Constructor abonat cu move\n";
+}
+
 Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit) : nr_telefon(nr_telefonInit), Persoana(persoanaInit) { std::cout << "Constructor aboant plecand de la persoana cu referinta la nr_telefon\n"; }
 
 Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit) : nr_telefon(nr_telefonInit), Persoana(persoanaInit) { std::cout << "Constructor abonat plecand de la persoana cu move la nr_telefon\n"; }
 
-Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit, const Abonament& abonamentInit): nr_telefon(nr_telefonInit), Persoana(persoanaInit)
+Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit, std::shared_ptr<Abonament>& abonamentInit): abonament(abonamentInit), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
 {
-	abonament = abonamentInit;
+	//std::shared_ptr<Abonament>aux(abonamentInit);
+	//abonament = aux;
 	std::cout<< "Constructor Abonat plecand de la persoana si abonament cu referinta la nr_telefonInit\n";
 }
-Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit, const Abonament& abonamentInit): nr_telefon(nr_telefonInit), Persoana(persoanaInit)
+Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit, std::shared_ptr<Abonament>& abonamentInit): abonament(abonamentInit), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
 {
-	abonament = abonamentInit;
 	std::cout<< "Constructor Abonat plecand de la persoana si abonament cu move la nr_telefonInit\n";
 }
+
+Abonat::Abonat(const Abonat& other):abonament(other.abonament), nr_telefon(other.nr_telefon), Persoana(other)
+{
+	std::cout << "Constructor de copiere\n";
+}
+
 
 Abonat::Abonat() : Persoana()
 {
@@ -58,5 +71,6 @@ void Abonat::showInfo()const
 	std::cout << "Nume: " << nume << std::endl;
 	std::cout << "CNP: " << cnp << std::endl;
 	std::cout << "Informatii despre abonament: \n";
-	abonament.showInfo();//poate un cout << abonament;
+	//abonament.showInfo();//poate un cout << abonament;
+	std::cout << abonament;
 }

@@ -41,6 +41,10 @@ std::ostream& operator<<(std::ostream& os, const Abonament& abonament)
 }
 std::ostream& operator<<(std::ostream& os, Abonament* abonament)
 {
+	if (abonament == nullptr) {
+		os << "Nu exista abonamentul\n";
+		return os;
+	}
 	if (dynamic_cast<Abonament_premium*>(abonament) == nullptr) {
 		os << "Abonamentul este de tip STANDARD\n";
 		os << "Numele abonamentului: " << abonament->nume << std::endl;
@@ -51,6 +55,35 @@ std::ostream& operator<<(std::ostream& os, Abonament* abonament)
 		os << dynamic_cast<Abonament_premium*>(abonament);
 	}
 	return os;
+}
+
+std::istream& operator>>(std::istream& is, Abonament& abonament)
+{
+	std::cout << "Abonamentul este de tip standard\n";
+	std::cout << "Dati numele abonamentului: \n";
+	//is.get();
+	is >> abonament.nume;
+	std::cout << "Dati pretul abonamentului: \n";
+	//is.get();
+	is >> abonament.pret;
+	std::cout << "Dati perioada abonamentului: \n";
+	//is.get();
+	is >> abonament.perioada;
+	return is;
+}
+
+std::istream& operator>>(std::istream& is, Abonament* abonament)
+{
+	if (abonament == nullptr) {
+		std::cout << "Abonamentul nu exista\n";
+		return is;
+	}
+	if (dynamic_cast<Abonament_premium*>(abonament) == nullptr) {
+		is >> *abonament;
+	}
+	else {
+		is >> *dynamic_cast<Abonament_premium*>(abonament);
+	}
 }
 
 void Abonament::showInfo() const
@@ -81,6 +114,11 @@ Abonament_premium::Abonament_premium(const Abonament_premium& other) : reducere(
 	std::cout << "Constructor de copiere la abonament_premium\n";
 }
 
+Abonament_premium::Abonament_premium(const Abonament& other) : Abonament(other)
+{
+	this->reducere = -1;
+	std::cout << "Constructor de copiere la abonament_premium cu abonament\n";
+}
 
 Abonament_premium::Abonament_premium()
 {
@@ -99,12 +137,32 @@ std::ostream& operator<<(std::ostream& os, const Abonament_premium& abonament_pr
 }
 std::ostream& operator<<(std::ostream& os, const Abonament_premium* abonament_premium)
 {
+	//os << (*abonament_premium); ??? se poate si asa ???
 	os << "Abonamentul este de tip PREMIUM\n";
 	os << "Denumriea abonamentului: " << abonament_premium->nume << std::endl;
 	os << "Pretul abonamentului: " << abonament_premium->pret << std::endl;
 	os << "Perioada abonamentului: " << abonament_premium->perioada << std::endl;
 	os << "Reducerea specifica abonamentului premium: " << abonament_premium->reducere << std::endl;
 	return os;
+}
+
+std::istream& operator>>(std::istream& is, Abonament_premium& abonament_premium)
+{
+
+	std::cout << "Abonamentul este de tip premium\n";
+	is >> dynamic_cast<Abonament&>(abonament_premium);
+	std::cout << "Dati reducerea:\n";
+	is >> abonament_premium.reducere;
+	return is;
+}
+
+std::istream& operator>>(std::istream& is, Abonament_premium* abonament_premium)
+{
+	//std::cout << "Abonamentul este de tip premium\n";
+	is >> *abonament_premium;
+	//std::cout << "Dati reducerea:\n";
+	//is >> abonament_premium->reducere;
+	return is;
 }
 
 void Abonament_premium::showInfo() const

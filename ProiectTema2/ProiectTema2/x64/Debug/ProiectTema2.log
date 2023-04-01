@@ -1,4 +1,5 @@
 ﻿  ProiectTema2.cpp
-C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\ProiectTema2\ProiectTema2.cpp(9,37): warning C4305: 'argument': truncation from 'double' to 'const float'
-C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\ProiectTema2\ProiectTema2.cpp(10,52): warning C4305: 'argument': truncation from 'double' to 'const float'
+  abonament.cpp
+  Generating Code...
+C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\ProiectTema2\abonament.cpp(87): warning C4715: 'operator>>': not all control paths return a value
   ProiectTema2.vcxproj -> C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\x64\Debug\ProiectTema2.exe
