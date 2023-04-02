@@ -8,6 +8,7 @@
 class Abonament
 {
 protected:
+	static int nr_abonamente;
 	std::string nume;
 	float pret;
 	int perioada;
@@ -16,7 +17,7 @@ public:
 	Abonament(const std::string&&nume, const float pret, const int perioada);
 	Abonament(const Abonament&abonament);
 	Abonament();
-	virtual ~Abonament() = default;
+	virtual ~Abonament();
 	Abonament& operator=(const Abonament&abonament);
 	friend std::ostream& operator<<(std::ostream&os, const Abonament&abonament);
 	friend std::ostream& operator<<(std::ostream&os, Abonament* abonament_ptr);
@@ -25,10 +26,12 @@ public:
 	//friend std::istream& operator>>(std::istream&is, std::shared_ptr<Abonament>&);
 	virtual void showInfo()const;
 	virtual void setInfo();
+	static void cateAbonamente();
 };
 
 class Abonament_premium : public Abonament
 {
+	static int nr_abonamente_premium;
 	int reducere;
 public:
 	Abonament_premium(const int reducere, const std::string&nume, const float pret, const int perioada);
@@ -37,6 +40,7 @@ public:
 	Abonament_premium(const Abonament_premium&abonament_premium);
 	Abonament_premium(const Abonament&abonament);
 	Abonament_premium();
+	~Abonament_premium();
 	Abonament_premium& operator=(const Abonament_premium& abonament_premium);
 	friend std::ostream& operator<<(std::ostream&os, const Abonament_premium& abonament_premium);
 	friend std::ostream& operator<<(std::ostream&os, const Abonament_premium* abonament_premium_ptr);
@@ -44,4 +48,5 @@ public:
 	friend std::istream& operator>>(std::istream& is, Abonament_premium* abonament_premium_ptr);
 	void showInfo()const override;
 	void setInfo()override;
+	static void cateAbonamente();
 };

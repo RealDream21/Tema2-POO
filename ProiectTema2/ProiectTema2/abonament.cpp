@@ -1,26 +1,38 @@
 #include "abonament.h"
 
+int Abonament::nr_abonamente = 0;
+int Abonament_premium::nr_abonamente_premium = 0;
+
 Abonament::Abonament(const std::string& nume_abonament, const float prt, const int per) : nume(nume_abonament), pret(prt), perioada(per)
 {
+	nr_abonamente++;
 	std::cout << "Constructor cu parametru prin referinta la abonament\n";
 }
 
 Abonament::Abonament(const std::string&& nume_abonament, const float prt, const int per) : nume(nume_abonament), pret(prt), perioada(per)
 {
+	nr_abonamente++;
 	std::cout << "Constructor cu move\n";
 }
 
 Abonament::Abonament(const Abonament& other): nume(other.nume), pret(other.pret), perioada(other.perioada)
 {
+	nr_abonamente++;
 	std::cout << "Cosntructor de copiere la Abonament\n"; 
 }
 
 Abonament::Abonament() 
 {
+	nr_abonamente++;
 	nume = "Neinitializat";
 	pret = -1;
 	perioada = -1;
 	std::cout << "Constructor default\n";
+}
+
+Abonament::~Abonament()
+{
+	nr_abonamente--;
 }
 
 Abonament& Abonament::operator=(const Abonament& other) 
@@ -98,7 +110,7 @@ void Abonament::showInfo() const
 void Abonament::setInfo()
 {
 	std::cout << "Dati informatiile pentru abonamentul standard:\n";
-	std::cout << "Numele: \n";
+	std::cout << "Numele(fara spatii): \n";
 	std::cin >> this->nume;
 	std::cout << "Pret: \n";
 	std::cin >> this->pret;
@@ -106,37 +118,53 @@ void Abonament::setInfo()
 	std::cin >> this->perioada;
 }
 
+void Abonament::cateAbonamente()
+{
+	std::cout << "Exista " << nr_abonamente << " abonamente standard\n";
+}
+
 
 Abonament_premium::Abonament_premium(const int red, const std::string& nume_abonament, const float prt, const int per): Abonament(nume_abonament, prt, per), reducere(red) 
 {
+	nr_abonamente_premium++;
 	std::cout << "Cosntructor cu parametru prin referinta la abonament_premium\n";
 }
 
 Abonament_premium::Abonament_premium(const int red, const std::string&& nume_abonament, const float prt, const int per): Abonament(nume_abonament, prt, per), reducere(red) //nu ar trb sa apeleze tot move constructor de la Abonament?
 {
+	nr_abonamente_premium++;
 	std::cout << "Constructor cu move la abonament_premium\n";
 }
 
 Abonament_premium::Abonament_premium(const int red, const Abonament& aboanmentInit) : reducere(red), Abonament(aboanmentInit) 
 { 
+	nr_abonamente_premium++;
 	std::cout << "Constructor aboanament_premium plecand de la abonament\n"; 
 }
 
 Abonament_premium::Abonament_premium(const Abonament_premium& other) : reducere(other.reducere), Abonament(other)
 {
+	nr_abonamente_premium++;
 	std::cout << "Constructor de copiere la abonament_premium\n";
 }
 
 Abonament_premium::Abonament_premium(const Abonament& other) : Abonament(other)
 {
+	nr_abonamente_premium++;
 	this->reducere = -1;
 	std::cout << "Constructor de copiere la abonament_premium cu abonament\n";
 }
 
 Abonament_premium::Abonament_premium()
 {
+	nr_abonamente_premium++;
 	this->reducere = -1;
 	std::cout << "Constructor default de la abonament_premium\n";
+}
+
+Abonament_premium::~Abonament_premium()
+{
+	nr_abonamente_premium--;
 }
 
 Abonament_premium& Abonament_premium::operator=(const Abonament_premium& other)
@@ -199,7 +227,7 @@ void Abonament_premium::showInfo() const
 void Abonament_premium::setInfo()
 {
 	std::cout << "Dati informatiile pentru abonamentul premium:\n";
-	std::cout << "Numele abonamentului: \n";
+	std::cout << "Numele abonamentului(fara spatii): \n";
 	std::cin >> this->nume;
 	std::cout << "Pretul abonamentului: \n";
 	std::cin >> this->pret;
@@ -208,4 +236,9 @@ void Abonament_premium::setInfo()
 	std::cout << "Reducere: \n";
 	std::cin >> this->reducere;
 	return;
+}
+
+void Abonament_premium::cateAbonamente()
+{
+	std::cout << "Exista " << nr_abonamente_premium << " abonamente premium si " << nr_abonamente << " abonamente standard\n";
 }
