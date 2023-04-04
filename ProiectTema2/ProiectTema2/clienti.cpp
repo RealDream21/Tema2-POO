@@ -8,6 +8,7 @@ void Clienti::appendClient(std::shared_ptr<Abonat>& ptr_abonat)
 std::shared_ptr<Abonat>& Clienti::removeLastClient()
 {
 	std::shared_ptr<Abonat>& to_return = lista.back();
+	//try aici
 	lista.pop_back();
 	return to_return;
 }
@@ -15,6 +16,7 @@ std::shared_ptr<Abonat>& Clienti::removeLastClient()
 std::shared_ptr<Abonat>& Clienti::operator[](int i)
 {
 	if (i < lista.size()) {
+		//merge cu try aici
 		std::cout << "Nu exista abonatul nr " << i << std::endl;
 		return lista[0];
 	}
