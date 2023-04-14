@@ -54,11 +54,14 @@ int main()
         std::cin >> menuItem;
 
         if (menuItem == "1") {
-            Abonat* abonat = new Abonat();
-            std::cin >> *abonat;
-            std::unique_ptr<Abonat> abonatToAdd(abonat);
+            Abonat abonat;
+            std::cin >> abonat;
+            std::unique_ptr<Abonat> abonatToAdd = std::make_unique<Abonat>(abonat);
+            //abonatToAdd->setInfo();
+            //daca e abonat premium mai trebuie adaugat un nr de telefon. Merge cu downcasting verificata chestia asta
             listaClienti.appendClient(abonatToAdd);
             std::cout << "Am citit abonamentul cu succes. Apasa ENTER pentru a continua\n";
+            std::cin.get();
             std::cin.get();
         }
         else if (menuItem == "2") {

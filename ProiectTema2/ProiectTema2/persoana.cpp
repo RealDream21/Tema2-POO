@@ -180,7 +180,6 @@ void Abonat::setInfo()
 	cnp = ptr->cnp;
 	nr_telefon = ptr->nr_telefon;
 	delete ptr;
-	abonament->setInfo();
 }
 
 void Abonat::setAbonament(std::unique_ptr<Abonament>& newAbonament)
