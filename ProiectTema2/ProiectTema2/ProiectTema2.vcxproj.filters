@@ -24,12 +24,18 @@
     <ClCompile Include="persoana.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clienti.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="abonament.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="persoana.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clienti.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

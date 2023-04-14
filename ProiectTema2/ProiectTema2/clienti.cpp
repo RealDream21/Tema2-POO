@@ -2,25 +2,29 @@
 
 void Clienti::appendClient(std::unique_ptr<Abonat>& ptr_abonat)
 {
-	lista.push_back(ptr_abonat);
+	lista.push_back(std::move(ptr_abonat));
+	return;
 }
 
 std::unique_ptr<Abonat>& Clienti::removeLastClient()
 {
-	std::shared_ptr<Abonat>& to_return = lista.back();
-	//try aici
+	std::unique_ptr<Abonat> last = std::move(lista.back());
 	lista.pop_back();
-	return to_return;
+	return last;
 }
 
 std::unique_ptr<Abonat>& Clienti::operator[](int i)
 {
-	if (i < lista.size()) {
-		//merge cu try aici
-		std::cout << "Nu exista abonatul nr " << i << std::endl;
-		return lista[0];
-	}
-	else {
+	if (i >= lista.size())
+		throw std::out_of_range("Elementul nu exista in lista\n");
+	else
 		return lista[i];
+}
+
+void Clienti::print()
+{
+	for (int i = 0; i < lista.size(); i++)
+	{
+		lista[i]->showInfo();
 	}
 }

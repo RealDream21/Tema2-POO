@@ -156,14 +156,14 @@ std::istream& operator>>(std::istream& is, Abonat& abonat)
 			std::cout << "numar gresit\n";
 		if (tip == "1") {
 			std::cout << "ati selectat abonamentul normal\n";
-			//abonat.abonament = std::move(std::make_unique<Abonament>());
+			abonat.abonament = std::move(std::make_unique<Abonament>());
 			abonat.abonament->setInfo();
 			break;
 		}
 		else if (tip == "2") {
 			std::cout << "ati selectat abonamentul premium\n";
 			//abonat.abonament = std::unique_ptr<Abonament>(new Abonament_premium());
-			//abonat.abonament = std::move(std::make_unique<Abonament_premium>());
+			abonat.abonament = std::move(std::make_unique<Abonament_premium>());
 			abonat.abonament->setInfo();
 			break;
 		}
