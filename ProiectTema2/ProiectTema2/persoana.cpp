@@ -67,11 +67,11 @@ void Persoana::catePersoane()
 }
 
 
-Abonat::Abonat(const std::string& nr_telefonInit, const std::string& numeInit, const std::string& cnpInit, const int idInit) : nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit) { nr_persoane_abonate++; std::cout << "Constructor de Abonat de la 0 cu referinta\n"; }
+Abonat::Abonat(const std::string& nr_telefonInit, const std::string& numeInit, const std::string& cnpInit, const int idInit) : nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit), abonament(std::move(std::make_unique<Abonament>())) { nr_persoane_abonate++; std::cout << "Constructor de Abonat de la 0 cu referinta\n"; }
 
-Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit) : nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit) { nr_persoane_abonate++; std::cout << "Constructor de Abonat plecand de la 0 cu move\n"; }
+Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit) : nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit), abonament(std::move(std::make_unique<Abonament>())) { nr_persoane_abonate++; std::cout << "Constructor de Abonat plecand de la 0 cu move\n"; }
 
-Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit, std::shared_ptr<Abonament>& abonamentInit) : abonament(abonamentInit), nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit)
+Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit, std::unique_ptr<Abonament>& abonamentInit) : abonament(std::move(abonamentInit)), nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit)
 {
 	//std::shared_ptr<Abonament>aux(abonamentInit);
 	//abonament = aux;
@@ -79,26 +79,28 @@ Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit,
 	std::cout << "Constructor abonat cu move\n";
 }
 
-Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit) : nr_telefon(nr_telefonInit), Persoana(persoanaInit) { nr_persoane_abonate++; std::cout << "Constructor aboant plecand de la persoana cu referinta la nr_telefon\n"; }
+Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit) : nr_telefon(nr_telefonInit), Persoana(persoanaInit), abonament(std::move(std::make_unique<Abonament>())) { nr_persoane_abonate++; std::cout << "Constructor aboant plecand de la persoana cu referinta la nr_telefon\n"; }
 
-Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit) : nr_telefon(nr_telefonInit), Persoana(persoanaInit) { nr_persoane_abonate++; std::cout << "Constructor abonat plecand de la persoana cu move la nr_telefon\n"; }
+Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit) : nr_telefon(nr_telefonInit), Persoana(persoanaInit), abonament(std::move(std::make_unique<Abonament>())) { nr_persoane_abonate++; std::cout << "Constructor abonat plecand de la persoana cu move la nr_telefon\n"; }
 
-Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit, std::shared_ptr<Abonament>& abonamentInit): abonament(abonamentInit), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
+Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit, std::unique_ptr<Abonament>& abonamentInit): abonament(std::move(abonamentInit)), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
 {
 	//std::shared_ptr<Abonament>aux(abonamentInit);
 	//abonament = aux;
 	nr_persoane_abonate++;
 	std::cout<< "Constructor Abonat plecand de la persoana si abonament cu referinta la nr_telefonInit\n";
 }
-Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit, std::shared_ptr<Abonament>& abonamentInit): abonament(abonamentInit), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
+Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit, std::unique_ptr<Abonament>& abonamentInit): abonament(std::move(abonamentInit)), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
 {
 	nr_persoane_abonate++;
 	std::cout<< "Constructor Abonat plecand de la persoana si abonament cu move la nr_telefonInit\n";
 }
-
-Abonat::Abonat(const Abonat& other):abonament(other.abonament), nr_telefon(other.nr_telefon), Persoana(other)
+//abonament(std::make_unique<Abonament>())
+//abonament(std::move(std::make_unique<Abonament>(other.abonament)))
+Abonat::Abonat(Abonat& other): abonament(std::move(other.abonament)), nr_telefon(other.nr_telefon), Persoana(other)
 {
 	nr_persoane_abonate++;
+
 	std::cout << "Constructor de copiere\n";
 }
 
@@ -117,8 +119,11 @@ Abonat::~Abonat()
 
 Abonat& Abonat::operator=(const Abonat& other)
 {
+	nume = other.nume;
+	cnp = other.cnp;
 	nr_telefon = other.nr_telefon;
-	abonament = other.abonament; //??? smart pointers ???
+	//abonament = std::move(std::make_unique<Abonament>(other.abonament));
+	//abonament = std::move(other.abonament);
 	return *this;
 }
 
@@ -151,13 +156,14 @@ std::istream& operator>>(std::istream& is, Abonat& abonat)
 			std::cout << "numar gresit\n";
 		if (tip == "1") {
 			std::cout << "ati selectat abonamentul normal\n";
-			abonat.abonament = std::shared_ptr<Abonament>(new Abonament());
+			//abonat.abonament = std::move(std::make_unique<Abonament>());
 			abonat.abonament->setInfo();
 			break;
 		}
 		else if (tip == "2") {
 			std::cout << "ati selectat abonamentul premium\n";
-			abonat.abonament = std::shared_ptr<Abonament>(new Abonament_premium());
+			//abonat.abonament = std::unique_ptr<Abonament>(new Abonament_premium());
+			//abonat.abonament = std::move(std::make_unique<Abonament_premium>());
 			abonat.abonament->setInfo();
 			break;
 		}
@@ -173,8 +179,14 @@ void Abonat::setInfo()
 	nume = ptr->nume;
 	cnp = ptr->cnp;
 	nr_telefon = ptr->nr_telefon;
-	abonament = ptr->abonament;
 	delete ptr;
+	abonament->setInfo();
+}
+
+void Abonat::setAbonament(std::unique_ptr<Abonament>& newAbonament)
+{
+	abonament = std::move(newAbonament);
+	return;
 }
 
 

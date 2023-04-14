@@ -6,11 +6,11 @@
 
 class Clienti
 {
-	std::vector<std::shared_ptr<Abonat>> lista;
+	std::vector<std::unique_ptr<Abonat>> lista;
 public:
 	Clienti() = default;
-	void appendClient(std::shared_ptr<Abonat>& ptr_abonat);
-	std::shared_ptr<Abonat>& removeLastClient();
-	std::shared_ptr<Abonat>& operator[](int index);
+	void appendClient(std::unique_ptr<Abonat>& ptr_abonat);
+	std::unique_ptr<Abonat>& removeLastClient();
+	std::unique_ptr<Abonat>& operator[](int index);
 };
 

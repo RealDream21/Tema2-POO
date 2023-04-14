@@ -1,11 +1,11 @@
 #include "clienti.h"
 
-void Clienti::appendClient(std::shared_ptr<Abonat>& ptr_abonat)
+void Clienti::appendClient(std::unique_ptr<Abonat>& ptr_abonat)
 {
 	lista.push_back(ptr_abonat);
 }
 
-std::shared_ptr<Abonat>& Clienti::removeLastClient()
+std::unique_ptr<Abonat>& Clienti::removeLastClient()
 {
 	std::shared_ptr<Abonat>& to_return = lista.back();
 	//try aici
@@ -13,7 +13,7 @@ std::shared_ptr<Abonat>& Clienti::removeLastClient()
 	return to_return;
 }
 
-std::shared_ptr<Abonat>& Clienti::operator[](int i)
+std::unique_ptr<Abonat>& Clienti::operator[](int i)
 {
 	if (i < lista.size()) {
 		//merge cu try aici
