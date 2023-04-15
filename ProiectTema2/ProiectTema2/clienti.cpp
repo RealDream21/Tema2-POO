@@ -21,10 +21,12 @@ std::unique_ptr<Abonat>& Clienti::operator[](int i)
 		return lista[i];
 }
 
+
 void Clienti::print()
 {
 	for (int i = 0; i < lista.size(); i++)
 	{
 		lista[i]->showInfo();
+		std::cout << std::endl;
 	}
 }

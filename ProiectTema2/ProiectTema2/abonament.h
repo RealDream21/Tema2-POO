@@ -26,6 +26,7 @@ public:
 	//friend std::istream& operator>>(std::istream&is, std::shared_ptr<Abonament>&);
 	virtual void showInfo()const;
 	virtual void setInfo();
+	virtual int getReducere();
 	static void cateAbonamente();
 };
 
@@ -48,5 +49,6 @@ public:
 	friend std::istream& operator>>(std::istream& is, Abonament_premium* abonament_premium_ptr);
 	void showInfo()const override;
 	void setInfo()override;
+	int getReducere()override;
 	static void cateAbonamente();
 };

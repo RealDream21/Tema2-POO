@@ -27,19 +27,18 @@ int main()
     //functionalitatile: afisare abonati separati de abonati_premium
     //castigul total pentru toti abonatii, chestii de genul
     /*----------------------TO DO ----------------------*/
-    
-    /*-------------------TO ASK ----------------------*/
-    //copierea la smart pointers din operator= la Abonat ???
-    /*-------------------TO ASK ----------------------*/
+   
 
     /*-------------------PROBLEME CUNOSCUTE -------------------*/
-    //citirea fara spatii a numelui de abonament <--- EXCEPTION 
+    //CAND SE COPIAZA CLIENT1 = CLIENT2 si client2 are premium, iar client1 nu are => nu se copiaza si reducerea de la abonamentul premium
+    //NU POT SA IAU FUCKING REDCUEREA DE LA ABONAMENTUL UNUI CLIENT
+    
+    
     //eroare la D[3] cand 3 e out of range. poate cu exception? <--- EXCEPTION 
     //check la operator[] daca e ok compararea cu size <--- EXCEPTION
     //eventual trebuie comparat cu size si la pop_back 
     //aici se pot introduce ex`ceptiile
     //copierea de genul pointer1 = pointer2 desi merge bine, probabil cel mai ok este copierea normala ca la tema trecuta(copierea fiecarui atribut)
-
     /*-------------------PROBLEME CUNOSCUTE -------------------*/
 
     Clienti listaClienti;
@@ -54,13 +53,19 @@ int main()
         std::cin >> menuItem;
 
         if (menuItem == "1") {
-            Abonat abonat;
-            std::cin >> abonat;
-            std::unique_ptr<Abonat> abonatToAdd = std::make_unique<Abonat>(abonat);
-            //abonatToAdd->setInfo();
-            //daca e abonat premium mai trebuie adaugat un nr de telefon. Merge cu downcasting verificata chestia asta
-            listaClienti.appendClient(abonatToAdd);
-            std::cout << "Am citit abonamentul cu succes. Apasa ENTER pentru a continua\n";
+            try {
+                Abonat abonat;
+                std::cin >> abonat;
+                std::unique_ptr<Abonat> abonatToAdd = std::make_unique<Abonat>(abonat);
+                //abonatToAdd->setInfo();
+                //daca e abonat premium mai trebuie adaugat un nr de telefon. Merge cu downcasting verificata chestia asta
+                listaClienti.appendClient(abonatToAdd);
+                std::cout << "Am citit abonamentul cu succes. Apasa ENTER pentru a continua\n";
+            }
+            catch (std::exception& err) {
+                std::cout <<"A APARUT O EROARE: " << err.what();
+                std::cout << "Citirea abonamentului a esuat. Apasa ENTER pentru a continua\n";
+            }
             std::cin.get();
             std::cin.get();
         }
@@ -72,7 +77,9 @@ int main()
             std::cin.get();
         }
         else if (menuItem == "3") {
-
+            *listaClienti[0] = *listaClienti[1];
+            std::cin.get();
+            std::cin.get();
         }
         else if (menuItem == "4") {
 
@@ -87,9 +94,5 @@ int main()
             std::cout << "input gresit\n";
         }
     }
-
-
-
-    std::cout << "Hello World!\n";
     return 0;
 }

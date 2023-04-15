@@ -37,9 +37,11 @@ Abonament::~Abonament()
 
 Abonament& Abonament::operator=(const Abonament& other) 
 {
+	std::cout << "Used operator= prost\n";
 	nume = other.nume;
 	pret = other.pret;
 	perioada = other.perioada;
+	
 	return *this;
 }
 
@@ -74,7 +76,9 @@ std::istream& operator>>(std::istream& is, Abonament& abonament)
 	std::cout << "Abonamentul este de tip standard\n";
 	std::cout << "Dati numele abonamentului: \n";
 	//is.get();
-	is >> abonament.nume;
+	is.get();
+	std::getline(is, abonament.nume);
+	//is >> abonament.nume;
 	std::cout << "Dati pretul abonamentului: \n";
 	//is.get();
 	is >> abonament.pret;
@@ -110,12 +114,23 @@ void Abonament::showInfo() const
 void Abonament::setInfo()
 {
 	std::cout << "Dati informatiile pentru abonamentul standard:\n";
-	std::cout << "Numele(fara spatii): \n";
-	std::cin >> this->nume;
+	std::cout << "Numele: \n";
+	std::cin.get();
+	std::getline(std::cin, this->nume);
+	//std::cin >> this->nume;
 	std::cout << "Pret: \n";
 	std::cin >> this->pret;
+	if (pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
 	std::cout << "Perioada: \n";
 	std::cin >> this->perioada;
+	if (perioada < 0)
+		throw std::invalid_argument("Perioada este invalida\n");
+}
+
+int Abonament::getReducere()
+{
+	return 0;
 }
 
 void Abonament::cateAbonamente()
@@ -227,15 +242,28 @@ void Abonament_premium::showInfo() const
 void Abonament_premium::setInfo()
 {
 	std::cout << "Dati informatiile pentru abonamentul premium:\n";
-	std::cout << "Numele abonamentului(fara spatii): \n";
-	std::cin >> this->nume;
+	std::cout << "Numele abonamentului: \n";
+	std::cin.get();
+	std::getline(std::cin, this->nume);
+	//std::cin >> this->nume;
 	std::cout << "Pretul abonamentului: \n";
 	std::cin >> this->pret;
+	if (pret < 0) 
+		throw std::invalid_argument("Pretul este invalid\n");
 	std::cout << "Perioada abonamentului(luni): \n";
 	std::cin >> this->perioada;
+	if (perioada < 0) 
+		throw std::invalid_argument("Perioada este invalida\n");
 	std::cout << "Reducere: \n";
 	std::cin >> this->reducere;
+	if (reducere < 0 || reducere > 100) 
+		throw std::invalid_argument("Reducerea este invalida\n");
 	return;
+}
+
+int Abonament_premium::getReducere()
+{
+	return reducere;
 }
 
 void Abonament_premium::cateAbonamente()

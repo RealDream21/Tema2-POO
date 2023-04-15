@@ -123,7 +123,21 @@ Abonat& Abonat::operator=(const Abonat& other)
 	cnp = other.cnp;
 	nr_telefon = other.nr_telefon;
 	//abonament = std::move(std::make_unique<Abonament>(other.abonament));
-	//abonament = std::move(other.abonament);
+	Abonament_premium a;
+	Abonament b;
+	const std::type_info& t_premium = typeid(a);
+	const std::type_info& t_standard = typeid(b);
+	const std::type_info& tabonament = typeid(*other.abonament);
+	if (t_premium == tabonament) {
+		abonament = std::move(std::make_unique<Abonament_premium>());
+		std::unique_ptr<Abonament_premium> aux = std::make_unique<Abonament_premium>(*other.abonament);
+		*abonament = *other.abonament;
+	}
+	else if (t_standard == tabonament) {
+		abonament = std::move(std::make_unique<Abonament>());
+		*abonament = *other.abonament;
+	}
+	//*abonament = *other.abonament;
 	return *this;
 }
 
@@ -145,9 +159,13 @@ std::istream& operator>>(std::istream& is, Abonat& abonat)
 	std::cout << "Dati id-ul abonatului: \n";
 	is >> abonat.id;
 	std::cout << "Dati numele abonatului: \n";
-	is >> abonat.nume;
+	//is >> abonat.nume;
+	is.get();
+	std::getline(is, abonat.nume);
 	std::cout << "Dati cnp-ul abonatului: \n";
 	is >> abonat.cnp;
+	std::cout << "Dati numarul de telefon: \n";
+	is >> abonat.nr_telefon;
 	std::string tip;
 	std::cout << "De ce tip este abonamentul? 1 pentru normal, 2 pentru premium: \n";
 	while (true) {
