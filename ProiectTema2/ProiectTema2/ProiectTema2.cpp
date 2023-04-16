@@ -30,8 +30,8 @@ int main()
    
 
     /*-------------------PROBLEME CUNOSCUTE -------------------*/
-    //CAND SE COPIAZA CLIENT1 = CLIENT2 si client2 are premium, iar client1 nu are => nu se copiaza si reducerea de la abonamentul premium
-    //NU POT SA IAU FUCKING REDCUEREA DE LA ABONAMENTUL UNUI CLIENT
+    //CAND SE COPIAZA CLIENT1 = CLIENT2 si client2 are premium, iar client1 nu are => nu se copiaza si reducerea de la abonamentul premium <--- FIXED
+    //NU POT SA IAU FUCKING REDCUEREA DE LA ABONAMENTUL UNUI CLIENT <--- FIXED
     
     
     //eroare la D[3] cand 3 e out of range. poate cu exception? <--- EXCEPTION 
@@ -45,7 +45,9 @@ int main()
 
     std::string menuItem = "";
 
-    while (true) {
+
+
+    while (false) {
         system("cls");
         std::cout << "Ce vrei sa faci?: \n";
         std::cout << " 1-> Adauga o persoana noua\n 2-> Afiseaza toti abonatii\n 3-> Afiseaza abonatii normali\n 4-> Afiseaza abonatii premium\n 5-> Afiseaza profitul total\n 6-> Iesi\n";
@@ -77,15 +79,23 @@ int main()
             std::cin.get();
         }
         else if (menuItem == "3") {
-            *listaClienti[0] = *listaClienti[1];
+            system("cls");
+            listaClienti.printStandard();
+            std::cout << "ENTER pentru a continua\n";
             std::cin.get();
             std::cin.get();
         }
         else if (menuItem == "4") {
-
+            system("cls");
+            listaClienti.printPremium();
+            std::cout << "ENTER pentru a continua\n";
+            std::cin.get();
+            std::cin.get();
         }
         else if (menuItem == "5") {
-
+            std::cout << listaClienti.castigTotal() << std::endl;
+            std::cin.get();
+            std::cin.get();
         }
         else if (menuItem == "6") {
             break;

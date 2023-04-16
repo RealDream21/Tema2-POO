@@ -21,7 +21,6 @@ std::unique_ptr<Abonat>& Clienti::operator[](int i)
 		return lista[i];
 }
 
-
 void Clienti::print()
 {
 	for (int i = 0; i < lista.size(); i++)
@@ -29,4 +28,34 @@ void Clienti::print()
 		lista[i]->showInfo();
 		std::cout << std::endl;
 	}
+}
+
+void Clienti::printStandard()const
+{
+	for (int i = 0; i < lista.size(); i++ ){
+		if (lista[i]->tip() == "standard") {
+			std::cout << "SALUT";
+			lista[i]->showInfo();
+			std::cout << std::endl;
+		}
+	}
+}
+
+void Clienti::printPremium()const
+{
+	for (int i = 0; i < lista.size(); i++ ){
+		if (lista[i]->tip() == "premium") {
+			lista[i]->showInfo();
+			std::cout << std::endl;
+		}
+	}
+}
+
+float Clienti::castigTotal()const
+{
+	float castig = 0;
+	for (int i = 0; i < lista.size(); i++) { 
+		castig += lista[i]->castig();
+	}
+	return castig;
 }

@@ -48,6 +48,8 @@ public:
 	void setAbonament(const Abonament otherAbonament);
 	void setAbonament(const Abonament_premium otherAbonamentPremium);
 	void showInfo()const override;
+	float castig()const;
+	std::string tip();
 	static void catePersoane();
 };
 

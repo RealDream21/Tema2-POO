@@ -73,8 +73,6 @@ Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit,
 
 Abonat::Abonat(const std::string&& nr_telefonInit, const std::string&& numeInit, const std::string&& cnpInit, const int idInit, std::unique_ptr<Abonament>& abonamentInit) : abonament(std::move(abonamentInit)), nr_telefon(nr_telefonInit), Persoana(numeInit, cnpInit, idInit)
 {
-	//std::shared_ptr<Abonament>aux(abonamentInit);
-	//abonament = aux;
 	nr_persoane_abonate++;
 	std::cout << "Constructor abonat cu move\n";
 }
@@ -85,8 +83,6 @@ Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit)
 
 Abonat::Abonat(const std::string& nr_telefonInit, const Persoana& persoanaInit, std::unique_ptr<Abonament>& abonamentInit): abonament(std::move(abonamentInit)), nr_telefon(nr_telefonInit), Persoana(persoanaInit)
 {
-	//std::shared_ptr<Abonament>aux(abonamentInit);
-	//abonament = aux;
 	nr_persoane_abonate++;
 	std::cout<< "Constructor Abonat plecand de la persoana si abonament cu referinta la nr_telefonInit\n";
 }
@@ -95,8 +91,7 @@ Abonat::Abonat(const std::string&& nr_telefonInit, const Persoana& persoanaInit,
 	nr_persoane_abonate++;
 	std::cout<< "Constructor Abonat plecand de la persoana si abonament cu move la nr_telefonInit\n";
 }
-//abonament(std::make_unique<Abonament>())
-//abonament(std::move(std::make_unique<Abonament>(other.abonament)))
+
 Abonat::Abonat(Abonat& other): abonament(std::move(other.abonament)), nr_telefon(other.nr_telefon), Persoana(other)
 {
 	nr_persoane_abonate++;
@@ -129,15 +124,13 @@ Abonat& Abonat::operator=(const Abonat& other)
 	const std::type_info& t_standard = typeid(b);
 	const std::type_info& tabonament = typeid(*other.abonament);
 	if (t_premium == tabonament) {
-		abonament = std::move(std::make_unique<Abonament_premium>());
-		std::unique_ptr<Abonament_premium> aux = std::make_unique<Abonament_premium>(*other.abonament);
-		*abonament = *other.abonament;
+		std::unique_ptr<Abonament> ptr2 = std::move(std::make_unique<Abonament_premium>(other.abonament->getReducere(), *other.abonament));
+		abonament = std::move(ptr2);
 	}
 	else if (t_standard == tabonament) {
 		abonament = std::move(std::make_unique<Abonament>());
 		*abonament = *other.abonament;
 	}
-	//*abonament = *other.abonament;
 	return *this;
 }
 
@@ -219,6 +212,25 @@ void Abonat::showInfo()const
 		std::cout << abonament;
 	else
 		std::cout << "Persoana nu are abonament\n";
+}
+
+float Abonat::castig() const
+{
+	return abonament->castig();
+}
+
+std::string Abonat::tip()
+{
+	Abonament a;
+	Abonament_premium b;
+	const std::type_info& tip_standard = typeid(a);
+	const std::type_info& tip_premium = typeid(b);
+	if (typeid(abonament) == tip_standard) {
+		return "standard";
+	}
+	else if (typeid(abonament) == tip_premium) {
+		return "premium";
+	}
 }
 
 void Abonat::catePersoane()

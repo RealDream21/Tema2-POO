@@ -12,8 +12,11 @@ public:
 	void appendClient(std::unique_ptr<Abonat>& ptr_abonat);
 	std::unique_ptr<Abonat>& removeLastClient();
 	std::unique_ptr<Abonat>& operator[](int index);
-	float castigTotal();
 	void print();
+	void printStandard()const;
+	void printPremium()const;
+	float castigTotal()const;
+
 };
 
 

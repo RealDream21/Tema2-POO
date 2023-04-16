@@ -27,6 +27,7 @@ public:
 	virtual void showInfo()const;
 	virtual void setInfo();
 	virtual int getReducere();
+	virtual float castig()const;
 	static void cateAbonamente();
 };
 
@@ -50,5 +51,6 @@ public:
 	void showInfo()const override;
 	void setInfo()override;
 	int getReducere()override;
+	float castig()const override;
 	static void cateAbonamente();
 };

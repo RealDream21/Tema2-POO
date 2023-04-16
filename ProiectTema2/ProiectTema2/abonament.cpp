@@ -5,18 +5,24 @@ int Abonament_premium::nr_abonamente_premium = 0;
 
 Abonament::Abonament(const std::string& nume_abonament, const float prt, const int per) : nume(nume_abonament), pret(prt), perioada(per)
 {
+	if (pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
 	nr_abonamente++;
 	std::cout << "Constructor cu parametru prin referinta la abonament\n";
 }
 
 Abonament::Abonament(const std::string&& nume_abonament, const float prt, const int per) : nume(nume_abonament), pret(prt), perioada(per)
 {
+	if (pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
 	nr_abonamente++;
 	std::cout << "Constructor cu move\n";
 }
 
 Abonament::Abonament(const Abonament& other): nume(other.nume), pret(other.pret), perioada(other.perioada)
 {
+	if (pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
 	nr_abonamente++;
 	std::cout << "Cosntructor de copiere la Abonament\n"; 
 }
@@ -82,9 +88,13 @@ std::istream& operator>>(std::istream& is, Abonament& abonament)
 	std::cout << "Dati pretul abonamentului: \n";
 	//is.get();
 	is >> abonament.pret;
+	if (abonament.pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
 	std::cout << "Dati perioada abonamentului: \n";
 	//is.get();
 	is >> abonament.perioada;
+	if (abonament.perioada < 0)
+		throw std::invalid_argument("Perioada este invalida\n");
 	return is;
 }
 
@@ -133,6 +143,11 @@ int Abonament::getReducere()
 	return 0;
 }
 
+float Abonament::castig() const
+{
+	return perioada * pret;
+}
+
 void Abonament::cateAbonamente()
 {
 	std::cout << "Exista " << nr_abonamente << " abonamente standard\n";
@@ -141,24 +156,36 @@ void Abonament::cateAbonamente()
 
 Abonament_premium::Abonament_premium(const int red, const std::string& nume_abonament, const float prt, const int per): Abonament(nume_abonament, prt, per), reducere(red) 
 {
+	if (pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
+	if (perioada < 0)
+		throw std::invalid_argument("Perioada este invalida\n");
 	nr_abonamente_premium++;
 	std::cout << "Cosntructor cu parametru prin referinta la abonament_premium\n";
 }
 
 Abonament_premium::Abonament_premium(const int red, const std::string&& nume_abonament, const float prt, const int per): Abonament(nume_abonament, prt, per), reducere(red) //nu ar trb sa apeleze tot move constructor de la Abonament?
 {
+	if (pret < 0)
+		throw std::invalid_argument("Pretul este invalid\n");
+	if (perioada < 0)
+		throw std::invalid_argument("Perioada este invalida\n");
 	nr_abonamente_premium++;
 	std::cout << "Constructor cu move la abonament_premium\n";
 }
 
 Abonament_premium::Abonament_premium(const int red, const Abonament& aboanmentInit) : reducere(red), Abonament(aboanmentInit) 
-{ 
+{
+	if (reducere < 0 || reducere > 100)
+		throw std::invalid_argument("Reducerea este invalida\n");
 	nr_abonamente_premium++;
 	std::cout << "Constructor aboanament_premium plecand de la abonament\n"; 
 }
 
 Abonament_premium::Abonament_premium(const Abonament_premium& other) : reducere(other.reducere), Abonament(other)
 {
+	if (reducere < 0 || reducere > 100)
+		throw std::invalid_argument("Reducerea este invalida\n");
 	nr_abonamente_premium++;
 	std::cout << "Constructor de copiere la abonament_premium\n";
 }
@@ -166,14 +193,14 @@ Abonament_premium::Abonament_premium(const Abonament_premium& other) : reducere(
 Abonament_premium::Abonament_premium(const Abonament& other) : Abonament(other)
 {
 	nr_abonamente_premium++;
-	this->reducere = -1;
+	this->reducere = 0;
 	std::cout << "Constructor de copiere la abonament_premium cu abonament\n";
 }
 
 Abonament_premium::Abonament_premium()
 {
 	nr_abonamente_premium++;
-	this->reducere = -1;
+	this->reducere = 0;
 	std::cout << "Constructor default de la abonament_premium\n";
 }
 
@@ -264,6 +291,11 @@ void Abonament_premium::setInfo()
 int Abonament_premium::getReducere()
 {
 	return reducere;
+}
+
+float Abonament_premium::castig() const
+{
+	return perioada * pret - (reducere / 100) * (perioada * pret);
 }
 
 void Abonament_premium::cateAbonamente()
