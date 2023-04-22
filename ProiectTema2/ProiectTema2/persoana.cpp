@@ -225,11 +225,11 @@ std::string Abonat::tip()
 	Abonament_premium b;
 	const std::type_info& tip_standard = typeid(a);
 	const std::type_info& tip_premium = typeid(b);
-	if (typeid(abonament) == tip_standard) {
-		return "standard";
+	if (typeid(*abonament) == typeid(a)) {
+		return std::string("standard");
 	}
-	else if (typeid(abonament) == tip_premium) {
-		return "premium";
+	else if (typeid(*abonament) == typeid(b)) {
+		return std::string("premium");
 	}
 }
 

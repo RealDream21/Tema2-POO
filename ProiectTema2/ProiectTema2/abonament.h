@@ -3,9 +3,15 @@
 #include <iostream>
 #include <memory>
 
-//functie de afisare tipul de abonament adica virtual intre abonament si abonament_premium
+class Abonament_pur {
+public:
+	virtual void showInfo()const = 0;
+	virtual void setInfo() = 0;
+	virtual int getReducere() = 0;
+	virtual float castig()const = 0;
+};
 
-class Abonament
+class Abonament: public Abonament_pur
 {
 protected:
 	static int nr_abonamente;
