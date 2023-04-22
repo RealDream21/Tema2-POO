@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 ﻿  ProiectTema2.cpp
   abonament.cpp
   clienti.cpp
+=======
+﻿  clienti.cpp
+>>>>>>> master
   persoana.cpp
   Generating Code...
 C:\Users\Fabi\Desktop\unibuc folder\Tema2-POO\ProiectTema2\ProiectTema2\persoana.cpp(234): warning C4715: 'Abonat::tip': not all control paths return a value

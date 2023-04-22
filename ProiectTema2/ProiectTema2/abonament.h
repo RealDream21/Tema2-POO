@@ -3,7 +3,12 @@
 #include <iostream>
 #include <memory>
 
+<<<<<<< HEAD
 class Abonament_pur {
+=======
+class Abonament_pur
+{
+>>>>>>> master
 public:
 	virtual void showInfo()const = 0;
 	virtual void setInfo() = 0;
