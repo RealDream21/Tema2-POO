@@ -34,7 +34,6 @@ void Clienti::printStandard()const
 {
 	for (int i = 0; i < lista.size(); i++ ){
 		if (lista[i]->tip() == "standard") {
-			std::cout << "SALUT";
 			lista[i]->showInfo();
 			std::cout << std::endl;
 		}

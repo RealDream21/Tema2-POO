@@ -16,7 +16,6 @@ public:
 	void printStandard()const;
 	void printPremium()const;
 	float castigTotal()const;
-
 };
 
 

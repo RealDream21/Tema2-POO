@@ -3,8 +3,6 @@
 #include <iostream>
 #include <memory>
 
-//functie de afisare tipul de abonament adica virtual intre abonament si abonament_premium
-
 class Abonament
 {
 protected:
